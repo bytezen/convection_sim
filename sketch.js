@@ -40,35 +40,59 @@ function draw() {
 		} // END Dial < 10		
 	} //END kb up
 	
+	// Problem 2 Dial Down
+	if( kb.pressed("down") ) {
+		if( dial > 0 ) {
+			dial--; // this is the same as dial=dial + 1
+			heat.animation.frameDelay += 3;	
+		} // END Dial < 10		
+	} //END kb up
+
+  //Problem 3 Dial Off
 	if(dial==0) {
 		heat.visible = false;
 		for(let drop of droplets) {
 			drop.coolDown();
 		}
 	} 
-	else {
-		heat.visible = true;
-	} //END
-
+  
+  // Problem 4 Dial On
 	if( dial > 0) {
+    heat.visible = true;
 		for(let drop of droplets) {
 			drop.heatUp();
-			// drop.temp += dropHeatRate;
-			if( drop.temp > maxDropTemp ) {
-				drop.temp = maxDropTemp;
-			} // END dropTemp
 		} // END for..of
 	} // END dial > 0
 	
-	//turn on da ice ice baby too cold too cold
+  // Problem 5 Pressed Left
+	if(kb.pressed("left")) {
+    if(heatX >= 400) {
+      heat.x -= 5;
+    }
+	} // END kb "left"  
+
+  // Problem 6 Pressed Right
+	if(kb.pressed("right")) {
+    if(heatX < 550) {
+      heat.x += 5;
+    }
+	} // END kb "left"
+  
+	//Problem 7 Toggle Ice
 	if(kb.pressed("i")) {
 		hasIce = !hasIce;
 	} // END kb "i"
-	
-	if(hasIce == true) {
-		image(ice, iceX, 40, 100, 100);
-	} // END has Ice
-	
+
+	//Problem 8 Toggle Overlap
+	if(kb.pressed("o")) {
+		dropsCanOverlap = !dropsCanOverlap;
+    if(dropsCanOverlap) {
+      droplets.overlap(droplets);
+    } else {
+      droplets.collide(droplets);
+    }
+	} // END kb "i"
+
 	// Problem 9: Toggle Show Help Menu
 	if( kb.pressed("h")) {
 		if( showHelpMenu == true ) {
@@ -78,6 +102,17 @@ function draw() {
 		}
 		print("showHelpMenu = ",showHelpMenu);
 	} // END kb "h"
+  
+  // Problem 10 Ice Effect
+  if(hasIce == true) {
+    image(ice, iceX, 40, 100, 100);
+    for(let drop of droplets) {
+      if(inColdZone(drop)) {
+        drop.coolDown();
+      }
+    }
+  } // END has Ice
+	
 	
 	// Problem 11: Help Menu
 	if(showHelpMenu) {
@@ -92,8 +127,8 @@ function draw() {
 		text("h: toggle help", 20, (y+=15));
 	}
 	
-	calculateForce();
 	calculateColor();
+	calculateForce();
 } // END draw
 
 function makeTank() {
@@ -162,7 +197,7 @@ function calculateForce() {
       }  
       else if( inColdZone(drop)){
         defaultForceCalculation(drop);
-        // drop.color = color(100,100,255);
+        drop.color = color(100,100,255);
       } 
       else if( nearTopTank(drop) ) {
         //distance from ice
@@ -204,7 +239,7 @@ function makeDrop() {
   d.diameter = d.diameter + random(-5,5);
   // how fast the drop heats up and cools down
   d.heatRate = dropHeatRate * random(0.5,1.1);
-  d.coolRate = dropCoolRate * random(0.5,1.1);
+  d.coolRate = dropCoolRate * random(1.0,1.1);
   // the force applied to the drop when the ice is on and
   // the drop is near the top of the tank
   d.topOfTankForce = random(0.5*topOfTankForce , 1.1*topOfTankForce);
@@ -259,8 +294,10 @@ function defaultForceCalculation(drop) {
   force = lerp(0,maxDropSpeed,normTemp*normTemp);
 
   if(deltaTemp < 0) {
-    drop.direction = 'down';
-    drop.speed = force;
+    // drop.direction = 'down';
+    // drop.speed = force;
+    drop.bearing = 90;
+    drop.applyForce(force);
   } 
   if(deltaTemp > 0) {
     // drop.direction = 'up';
@@ -282,7 +319,7 @@ let dial = 0;
 let totalDrops = 50;
 let dropletSize = 15;
 let maxDropSpeed = 2;
-let dropHeatRate = 0.02, dropCoolRate = -0.02;
+let dropHeatRate = 0.02, dropCoolRate = -0.04;
 let maxDropTemp = 55, minDropTemp = 45;
 
 let showTempLabels = true, outlineDrops = true;
