@@ -54,8 +54,7 @@ function draw() {
   // when heat is on heat up the drops in the hotzone
   if(dial > 0) {
     for(let drop of droplets) {
-      // check to see if the drop is near the fire
-      // if( inHotZone(drop) ) {
+      //TODO: Simulation command
       if( drop.inHotZone(sim.heat.x) ) {
         drop.heatUp();
       } // END in hot zone
@@ -64,10 +63,9 @@ function draw() {
 
   // turn the dial off drop cools
   if(dial == 0) { 
+    //TODO: Simulation command
     for(drop of droplets) {
       drop.coolDown();
-      // drop.temp += drop.coolRate;
-      // drop.temp =  Math.max(minDropTemp,drop.temp) ;
     }
   }
 
