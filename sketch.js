@@ -2,37 +2,21 @@
 
 function setup() {
 	new Canvas(600,400);
-
-	world.gravity.y = 1;
+  world.gravity.y = 1;
   
-	tank = new Tank({ w:600, h:300});
-  print(tank.bottomTank.y,"***")
-
-  //ADD ALPHA
   config.coldColor = color(50,50,255,100);
   config.hotColor = color(255,60,20,100);
-
+  
   droplets = new Group();
-
+	tank = new Tank({ w:600, h:300});  
   sim = new Simulator(config, droplets, tank);
 
-  for(let p in sim.config) {
-    print(p,sim.config[p]);
-  }
 }
 
 function draw() {
 	background(255);
-
-  // force = calculateForce();
-  // TODO Move to outside of the tank
-	// text("dial = " + dial, 30 ,330);
-  // text("water temperature = " + Math.round(waterTemp),30,360);
-  // text("drop temperature = " + Math.round(droplets[0].temp),30,390);
-  // text("drop Direction = " + Math.round(droplets[0].direction),30,290);
-  // text("sampSpeed = " + Math.round(droplets[0].speed),30,260);
   
-  // TODO: together visibility
+  // dial controls the visibility
   if(dial == 0) {
     sim.heat.visible = false;
   } else {
@@ -42,7 +26,7 @@ function draw() {
   // key board controls
   if(kb.pressed("up")) {
     if(dial < 10) {
-      sim.heat.animation.frameDelay -= 3;
+      sim.speedUpFlame();
       dial++;
     } // END dial > 10 block   
   } // END kb.pressed "up"
@@ -50,7 +34,7 @@ function draw() {
   if(kb.pressed("down")) {
     if(dial > 0) {
       dial--;
-      sim.heat.animation.frameDelay += 3;
+      sim.slowDownFlame();
     } // DIAL < 0 block 
   } // END of kb.down block
 
@@ -378,7 +362,14 @@ class Simulator {
     }
   }
   
-}
+  speedUpFlame = () => {
+    sim.heat.animation.frameDelay -= 3;
+  }
+  
+  slowDownFlame = () => {
+    sim.heat.animation.frameDelay += 3;
+  }
+} // END Simulation
 
 class Drop {
   static showLabel =  false;
