@@ -397,11 +397,11 @@ class Drop {
     this.drop.heatRadius = this.config.heatRadius + random(-0.25 * this.config.heatRadius,0.95*this.config.heatRadius);
     // how far from the ice before the drop starts getting colder
     this.drop.coldRadius = this.config.coldRadius + random(-0.25 * this.config.coldRadius,0.95*this.config.coldRadius);
-    // this.drop.update = () => { 
-    //   if(Drop.showLabel) {
-    //     this.drop.text = Math.round(this.drop.temp);
-    //   }
-    // }
+    this.drop.update = () => { 
+      if(Drop.showLabel) {
+        this.drop.text = Math.round(this.drop.temp);
+      }
+    }
     this.drop.heatUp = this.heatUp;
     this.drop.coolDown = this.coolDown;
     this.drop.inHotZone = this.inHotZone;
