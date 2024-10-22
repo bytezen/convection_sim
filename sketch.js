@@ -155,27 +155,6 @@ function preload() {
 }
 
 
-// ALL VARIABLES -------------
-let dial = 0;
-
-let config = {
-  totalDrops: 200,
-  dropletSize: 15,
-  maxDropSpeed: 2,
-  dropHeatRate: 0.04, dropCoolRate: -0.04,
-  maxDropTemp: 55, minDropTemp: 45,
-  waterTemp: 50,
-  showTempLabels: false,
-  outlineDrops: true,
-  dropsCanOverlap: false,
-  bottomOfTank: 50, topOfTank: 50,
-  heatRadius: 90, coldRadius: 150,
-  hasIce: false,
-  iceX: 50, heatX: 400,
-  topOfTankForce: 0.20, bottomOfTankForce: 0.40,
-  showHelpMenu: false
-};
-
 class Simulator {
   constructor(config, droplets, tank) {
     this.config = config;
@@ -483,211 +462,22 @@ class Tank {
   }
 }
 
+// ALL VARIABLES -------------
+let dial = 0;
 
-/*
-function makeDrop() {
-  if(dropsCanOverlap) {
-    droplets.overlap(droplets);
-  }
-  let d = new droplets.Sprite();
-  d.y = 280 + random(-5,5); //random(10,20); //280 + random(-20,0);
-  d.x = random(-100,100) + 330; //500;
-  d.temp = waterTemp; //minDropTemp + random(3);
-  d.diameter = d.diameter + random(-5,5);
-  // how fast the drop heats up and cools down
-  d.heatRate = dropHeatRate * random(0.5,1.1);
-  d.coolRate = dropCoolRate * random(0.5,1.1);
-  // the force applied to the drop when the ice is on and
-  // the drop is near the top of the tank
-  d.topOfTankForce = random(0.5*topOfTankForce , 1.1*topOfTankForce);
-  // force when ice is on and drop is at the bottom
-  d.bottomOfTankForce = random(0.5*bottomOfTankForce, 1.1*bottomOfTankForce);
-  // how far from the heat before the drop starts getting warmer
-  d.heatRadius = heatRadius + random(-0.25 * heatRadius,0.95*heatRadius);
-  // how far from the ice before the drop starts getting colder
-  d.coldRadius = coldRadius + random(-0.25 * coldRadius,0.95*coldRadius);
-  d.update = () => {
-    if(showTempLabels) {
-      d.text = Math.round(d.temp);    
-    }
-  }
-
-  d.heatUp = () => {
-    d.temp += d.heatRate;
-    d.temp = Math.min(d.temp, maxDropTemp);
-  }
-
-  d.coolDown = () => {
-    d.temp += d.coolRate;
-    d.temp = Math.max(d.temp, minDropTemp);
-  }
-}
-*/
-
-// return true if this drop is near the flame
-/*
-function inHotZone(drop) {
-  let inRadius = drop.x < (heat.x + drop.heatRadius) && drop.x > (heat.x - drop.heatRadius); 
-  return inRadius || (drop.x >= heat.x);
-}
-*/
-
-
-// return true if this drop is near the ice cube
-// function inColdZone(drop) {
-//   return (drop.x < (iceX + drop.coldRadius) && drop.x > (iceX - drop.coldRadius) );
-// }
-
-// return true if this drop is near the top of the tank
-// function nearTopTank(drop) {
-//   return (drop.y < topOfTank);
-// }
-
-// return true if this drop is near the bottom of the tank
-// function nearBottomTank(drop) {
-//   return (drop.y > bottomTank.y - bottomOfTank);
-// }
-
-// function calculateColor() {
-//   var t;
-
-//   for(let drop of droplets) {
-//     let t = norm(drop.temp,minDropTemp,maxDropTemp);
-//     t = constrain(t,0,1);
-//     if(outlineDrops) {
-//       drop.color = color(200,0);   
-//     } else {
-//       drop.color = lerpColor(coldColor,hotColor, t); 
-//     }
-//     drop.strokeColor = lerpColor(coldColor,hotColor, t); 
-//     drop.strokeWidth = 5;
-//   }
-// }
-
-/*
-function makeTank() {
-	let tankDim = { w:600, h:300};
-	
-	tank = new Group();
-	tank.color = 'black'
-	tank.height = 10;
-	tank.kinematic = 'static';
-	
-	//make the top
-	topTank = new tank.Sprite();
-	topTank.y = 5;
-	topTank.width = tankDim.w;
-	
-	// make the bottom
-	bottomTank = new tank.Sprite();
-	bottomTank.y = tankDim.h;
-	bottomTank.width = tankDim.w;
-	
-	//make the sides
-	leftTank = new tank.Sprite();
-	rightTank = new tank.Sprite();
-	leftTank.x = 5;
-	leftTank.y = tankDim.h * 0.5;
-	leftTank.height = tankDim.h;
-	leftTank.width = 10;
-	
-	rightTank.x = tankDim.w - 5;;
-	rightTank.y = tankDim.h * 0.5;
-	rightTank.height = tankDim.h;
-	rightTank.width = 10;
-}
-  */
-
-
-// TODO: ADD these variables
-// let totalDrops = 200;
-// let dropletSize = 15;
-// let maxDropSpeed = 2;
-
-// let waterTemp = 50, iceWaterTemp = 40; 
-// let dropHeatRate = 0.04;
-// let dropCoolRate = -0.04;
-// let maxDropTemp = 55, minDropTemp = 45;
-// let showTempLabels = false, outlineDrops = true;
-
-// // NEW VARS
-// let dropsCanOverlap = false;
-// let bottomOfTank = 50, topOfTank = 50;
-// let heatRadius = 90, coldRadius = 150;
-// let hasIce = false;
-// let iceX = 50, heatX = 400;
-// let topOfTankForce = 0.20, bottomOfTankForce = 0.40;
-
-// let showHelpMenu = false;
-
-
-
-/*
-function calculateForce() {
-  var deltaTemp, normTemp, force;
-
-  if(this.sim.hasIce) {
-    for(let drop of droplets) {
-      // if( nearBottomTank(drop) && !inHotZone(drop)) {       
-      print(tank.bottomTank, tank.bottomTank.y); 
-      if( drop.nearBottomTank(tank.bottomTank.y,sim.config.bottomOfTank) && 
-          !drop.inHotZone(sim.heat.x)) {        
-        drop.bearing = 0;
-        drop.applyForce(drop.bottomOfTankForce);
-      }  
-      else if( drop.inColdZone(sim.config.iceX)){
-        defaultForceCalculation(drop);
-        // drop.color = color(100,100,255);
-      } 
-      else if( drop.nearTopTank(tank.topTank.y, sim.config.topOfTank) ) {
-        //distance from ice
-          drop.bearing = -140;
-          // drop.speed = 1.0;
-          drop.applyForce(drop.topOfTankForce);                 
-      }
-      else  {
-        defaultForceCalculation(drop);
-        // drop.color = color(0,255,0);
-      }
-      
-      // make sure the droplet did not get bumped out of the tank
-      if(drop.y >= tank.bottomTank.y) {
-        drop.y = tank.bottomTank.y - drop.diameter - 10;
-      }
-    }
-  } // END hasIce
-  else {
-    for(let drop of droplets) { 
-      defaultForceCalculation(drop);
-
-      // make sure the droplet did not get bumped out of the tank
-      if(drop.y >= tank.bottomTank.y) {
-        drop.y = tank.bottomTank.y - drop.diameter - 10;
-      }          
-    }
-  } // END no Ice
-} // END calculate Force
-*/
-// use the difference in temperature between
-// the drop and the water to calculate a force
-/*
-function defaultForceCalculation(drop) {
-  deltaTemp = drop.temp - sim.config.waterTemp ;
-  normTemp = norm(deltaTemp,0,5);
-  force = lerp(0,sim.config.maxDropSpeed,normTemp*normTemp);
-
-  if(deltaTemp < 0) {
-    drop.direction = 'down';
-    drop.speed = force;
-  } 
-  if(deltaTemp > 0) {
-    // drop.direction = 'up';
-    // drop.speed = force;
-    drop.bearing = -90;
-    drop.applyForce(0.3);
-  }
-  if(deltaTemp == 0) {
-    drop.speed = 0;
-  }
-}
-*/
+let config = {
+  dropletSize: 15,
+  maxDropSpeed: 2,
+  dropHeatRate: 0.04, dropCoolRate: -0.04,
+  maxDropTemp: 55, minDropTemp: 45,
+  waterTemp: 50,
+  showTempLabels: false,
+  outlineDrops: true,
+  dropsCanOverlap: false,
+  bottomOfTank: 50, topOfTank: 50,
+  heatRadius: 90, coldRadius: 150,
+  hasIce: false,
+  iceX: 50, heatX: 400,
+  topOfTankForce: 0.20, bottomOfTankForce: 0.40,
+  showHelpMenu: false
+};
