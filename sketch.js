@@ -10,7 +10,6 @@ function setup() {
   droplets = new Group();
 	tank = new Tank({ w:600, h:300});  
   sim = new Simulator(config, droplets, tank);
-
   sim.hideFlame();
 }
 
@@ -18,11 +17,7 @@ function draw() {
 	background(255);
   
   // dial controls the visibility
-  if(dial == 0) {
-    sim.hideFlame();
-  } else {
-    sim.showFlame();
-  }
+
 
   // key board controls
   if(kb.pressed("up")) {
@@ -54,20 +49,12 @@ function draw() {
   // HANDLE the temperature changes
   // when heat is on heat up the drops in the hotzone
   if(dial > 0) {
-    for(let drop of droplets) {
-      //TODO: Simulation command
-      if( drop.inHotZone(sim.heat.x) ) {
-        drop.heatUp();
-      } // END in hot zone
-    }
+
   }
 
   // turn the dial off drop cools
   if(dial == 0) { 
-    //TODO: Simulation command
-    for(drop of droplets) {
-      drop.coolDown();
-    }
+
   }
 
   if(kb.pressed("i")) {
@@ -469,6 +456,7 @@ class Tank {
 let dial = 0;
 
 let config = {
+  totalDrops: 0,
   dropletSize: 15,
   maxDropSpeed: 2,
   dropHeatRate: 0.04, dropCoolRate: -0.04,
