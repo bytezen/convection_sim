@@ -10,6 +10,7 @@ function setup() {
   droplets = new Group();
 	tank = new Tank({ w:600, h:300});  
   sim = new Simulator(config, droplets, tank);
+  sim.colorDroplets([config.coldColor],[config.hotColor]);
   sim.hideFlame();
 }
 
@@ -159,6 +160,11 @@ class Simulator {
   }
 
   colorDroplets(coldColors, hotColors) {
+    for(let d of this.droplets) {
+      d.coldColor =  random(coldColors); 
+      d.hotColor = random(hotColors);    
+    }
+  }
   createDroplets() {
     this.droplets.diameter = this.config.dropletSize;
   
