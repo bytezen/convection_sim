@@ -468,7 +468,7 @@ let config = {
   bottomOfTank: 50, topOfTank: 50,
   heatRadius: 90, coldRadius: 150,
   hasIce: false,
-  iceX: 50, heatX: 400,
+  iceX: 50, heatX: 550,
   topOfTankForce: 0.20, bottomOfTankForce: 0.40,
   showHelpMenu: false
 };
