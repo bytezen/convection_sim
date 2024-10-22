@@ -128,19 +128,6 @@ function draw() {
   sim.calculateForce();
   sim.calculateColor();
 
-  push();
-  imageMode(CENTER);
-  translate(width*0.5, 350);
-  
-  rotate(map(dial,0,10,0,270));
-  image(dialImg, 0,0,50,50);
-  pop();
-  push();
-  translate(width*0.5, 350);
-  textAlign(CENTER);
-  textSize(20);
-  text(dial,0,0)
-  pop();
   {// Draw the dial
     push();
     imageMode(CENTER);
