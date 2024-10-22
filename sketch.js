@@ -18,9 +18,9 @@ function draw() {
   
   // dial controls the visibility
   if(dial == 0) {
-    sim.heat.visible = false;
+    sim.hideFlame();
   } else {
-    sim.heat.visible = true;
+    sim.showFlame();
   }
 
   // key board controls
@@ -367,6 +367,9 @@ class Simulator {
   slowDownFlame = () => {
     sim.heat.animation.frameDelay += 3;
   }
+
+  showFlame = () => {this.heat.visible = true;}
+  hideFlame = () => {this.heat.visible = false;}
 } // END Simulation
 
 class Drop {
