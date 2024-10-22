@@ -125,7 +125,7 @@ function draw() {
 		text("o: let drops overlap", 20, (y+=15));
 		text("i: toggle ice", 20, (y+=15));
 		text("h: toggle help", 20, (y+=15));
-	}
+	} 
 	
 	calculateColor();
 	calculateForce();
@@ -197,7 +197,6 @@ function calculateForce() {
       }  
       else if( inColdZone(drop)){
         defaultForceCalculation(drop);
-        drop.color = color(100,100,255);
       } 
       else if( nearTopTank(drop) ) {
         //distance from ice
@@ -319,7 +318,7 @@ let dial = 0;
 let totalDrops = 50;
 let dropletSize = 15;
 let maxDropSpeed = 2;
-let dropHeatRate = 0.02, dropCoolRate = -0.04;
+let dropHeatRate = 0.02, dropCoolRate = -0.03;
 let maxDropTemp = 55, minDropTemp = 45;
 
 let showTempLabels = true, outlineDrops = true;
@@ -331,7 +330,7 @@ let bottomOfTank = 50, topOfTank = 50;
 let heatRadius = 90, coldRadius = 150;
 let hasIce = false;
 let iceX = 50, heatX = 500;
-let topOfTankForce = 0.20, bottomOfTankForce = 0.40;
+let topOfTankForce = 0.20, bottomOfTankForce = 0.20;
 
 let showHelpMenu = false;
 
