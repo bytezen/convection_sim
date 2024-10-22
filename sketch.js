@@ -158,6 +158,7 @@ class Simulator {
     this.showHelpMenu = this.config.showHelpMenu;
   }
 
+  colorDroplets(coldColors, hotColors) {
   createDroplets() {
     this.droplets.diameter = this.config.dropletSize;
   
@@ -242,9 +243,11 @@ class Simulator {
         // make the fill transparent so we just have the outline
         drop.color = color(200,0);   
         drop.strokeColor = lerpColor(this.config.coldColor,this.config.hotColor, t); 
+        drop.strokeColor = lerpColor(drop.coldColor,drop.hotColor, t); 
         drop.strokeWeight =5;
       } else {
         drop.color = lerpColor(this.config.coldColor,this.config.hotColor, t); 
+        drop.color = lerpColor(drop.coldColor,drop.hotColor, t); 
         drop.strokeColor = drop.color;
         drop.strokeWeight = 2;
       }
