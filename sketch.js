@@ -465,7 +465,7 @@ class Tank {
 let dial = 0;
 
 let config = {
-  totalDrops: 0,
+  totalDrops: 100,
   dropletSize: 15,
   maxDropSpeed: 2,
   dropHeatRate: 0.04, dropCoolRate: -0.04,
