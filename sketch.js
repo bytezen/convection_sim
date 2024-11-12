@@ -18,7 +18,7 @@ function draw() {
 	background(255);
   
   // dial controls the visibility
-
+ 
 
   // key board controls
   if(kb.pressed("up")) {
@@ -50,11 +50,20 @@ function draw() {
   // HANDLE the temperature changes
   // when heat is on heat up the drops in the hotzone
   if(dial > 0) {
-
+    sim.showFlame()
+    for(let drop of droplets) {
+      if(drop.inHotZone(sim.heat.x)) {
+        drop.heatUp();
+      }
+    }
   }
 
   // turn the dial off drop cools
   if(dial == 0) { 
+    sim.hideFlame()
+    for(let drop of droplets) {
+      drop.coolDown();
+    }
 
   }
 
